@@ -121,7 +121,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        仕入れ値（1個あたり・円）
+        仕入れ値（円）
         <input
           type="number"
           value={form.purchase_price}
@@ -129,7 +129,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        送料（1個あたり・円）
+        送料（円）
         <input
           type="number"
           value={form.shipping_cost}
@@ -137,7 +137,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        販売手数料（1個あたり・円）
+        販売手数料（円）
         <input
           type="number"
           value={form.selling_fee}
@@ -145,7 +145,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        その他経費（1個あたり・円）
+        その他経費（円）
         <input
           type="number"
           value={form.other_cost}
@@ -153,7 +153,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        売値（1個あたり・円）
+        売値（円）
         <input
           type="number"
           value={form.sale_price}

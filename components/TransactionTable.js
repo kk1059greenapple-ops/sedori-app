@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { profitOf, totalSaleOf, yen } from "../lib/calc";
+import { profitOf, yen } from "../lib/calc";
 
 export default function TransactionTable({ transactions, onEdit, onDeleted }) {
   const [statusFilter, setStatusFilter] = useState("all");
@@ -44,9 +44,8 @@ export default function TransactionTable({ transactions, onEdit, onDeleted }) {
                 <th>カテゴリ</th>
                 <th>仕入れ先</th>
                 <th>個数</th>
-                <th>仕入れ値(単価)</th>
-                <th>売値(単価)</th>
-                <th>売上合計</th>
+                <th>仕入れ値</th>
+                <th>売値</th>
                 <th>利益</th>
                 <th>状態</th>
                 <th>仕入れ日</th>
@@ -65,7 +64,6 @@ export default function TransactionTable({ transactions, onEdit, onDeleted }) {
                     <td>{t.quantity || 1}</td>
                     <td>{yen(t.purchase_price)}</td>
                     <td>{yen(t.sale_price)}</td>
-                    <td>{yen(totalSaleOf(t))}</td>
                     <td style={{ color: profit >= 0 ? "#16a34a" : "#dc2626" }}>
                       {yen(profit)}
                     </td>
