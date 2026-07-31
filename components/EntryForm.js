@@ -10,6 +10,7 @@ const empty = {
   selling_fee: "",
   other_cost: "",
   sale_price: "",
+  quantity: "1",
   status: "未売却",
   purchase_date: "",
   sale_date: "",
@@ -31,6 +32,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         selling_fee: editing.selling_fee ?? "",
         other_cost: editing.other_cost ?? "",
         sale_price: editing.sale_price ?? "",
+        quantity: editing.quantity ?? "1",
         purchase_date: editing.purchase_date || "",
         sale_date: editing.sale_date || "",
       });
@@ -59,6 +61,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         selling_fee: Number(form.selling_fee) || 0,
         other_cost: Number(form.other_cost) || 0,
         sale_price: Number(form.sale_price) || 0,
+        quantity: Number(form.quantity) || 1,
         purchase_date: form.purchase_date || null,
         sale_date: form.sale_date || null,
       };
@@ -109,7 +112,16 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        仕入れ値（円）
+        個数
+        <input
+          type="number"
+          min="1"
+          value={form.quantity}
+          onChange={(e) => update("quantity", e.target.value)}
+        />
+      </label>
+      <label>
+        仕入れ値（1個あたり・円）
         <input
           type="number"
           value={form.purchase_price}
@@ -117,7 +129,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        送料（円）
+        送料（1個あたり・円）
         <input
           type="number"
           value={form.shipping_cost}
@@ -125,7 +137,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        販売手数料（円）
+        販売手数料（1個あたり・円）
         <input
           type="number"
           value={form.selling_fee}
@@ -133,7 +145,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        その他経費（円）
+        その他経費（1個あたり・円）
         <input
           type="number"
           value={form.other_cost}
@@ -141,7 +153,7 @@ export default function EntryForm({ editing, onSaved, onCancel }) {
         />
       </label>
       <label>
-        売値（円）
+        売値（1個あたり・円）
         <input
           type="number"
           value={form.sale_price}

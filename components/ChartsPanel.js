@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { profitOf, monthKey } from "../lib/calc";
+import { profitOf, totalSaleOf, monthKey } from "../lib/calc";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -21,7 +21,7 @@ export default function ChartsPanel({ transactions }) {
   sold.forEach((t) => {
     const key = monthKey(t.sale_date) || "不明";
     if (!monthly[key]) monthly[key] = { sales: 0, profit: 0 };
-    monthly[key].sales += Number(t.sale_price || 0);
+    monthly[key].sales += totalSaleOf(t);
     monthly[key].profit += profitOf(t);
   });
   const months = Object.keys(monthly).sort();
