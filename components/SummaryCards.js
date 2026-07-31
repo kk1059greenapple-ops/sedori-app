@@ -7,12 +7,15 @@ export default function SummaryCards({ transactions }) {
 
   const totalSales = sold.reduce((s, t) => s + totalSaleOf(t), 0);
   const totalCost = sold.reduce((s, t) => s + totalCostOf(t), 0);
-  const netProfit = sold.reduce((s, t) => s + profitOf(t), 0);
-  const margin = totalSales > 0 ? (netProfit / totalSales) * 100 : 0;
+  // 売却済み商品だけで見た利益（利益率の算出に使用）
+  const realizedProfit = sold.reduce((s, t) => s + profitOf(t), 0);
+  const margin = totalSales > 0 ? (realizedProfit / totalSales) * 100 : 0;
   const inventoryCost = unsold.reduce((s, t) => s + totalCostOf(t), 0);
   const inventoryQty = unsold.reduce((s, t) => s + Number(t.quantity || 1), 0);
-  // 現在の資産 = まだ売れていない在庫の仕入れコスト + これまでに確定した純利益
-  const currentAssets = inventoryCost + netProfit;
+  // 純利益 = 売却済み商品の利益 - まだ売れていない在庫の仕入れ代（財布から出て行った分もすぐ引く）
+  const netProfit = realizedProfit - inventoryCost;
+  // 現在の資産 = 在庫の投資額 + 売却済み商品の利益（在庫はまだ価値として手元にある）
+  const currentAssets = inventoryCost + realizedProfit;
 
   return (
     <div className="summary-grid">
