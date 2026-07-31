@@ -6,7 +6,8 @@ export default function SummaryCards({ transactions }) {
   const unsold = transactions.filter((t) => t.status !== "売却済み");
 
   const totalSales = sold.reduce((s, t) => s + totalSaleOf(t), 0);
-  const totalCost = sold.reduce((s, t) => s + totalCostOf(t), 0);
+  // 総経費は売却済み・未売却を問わず、すべての仕入れ関連コストを合計する
+  const totalCost = transactions.reduce((s, t) => s + totalCostOf(t), 0);
   // 売却済み商品だけで見た利益（利益率の算出に使用）
   const realizedProfit = sold.reduce((s, t) => s + profitOf(t), 0);
   const margin = totalSales > 0 ? (realizedProfit / totalSales) * 100 : 0;
@@ -30,7 +31,7 @@ export default function SummaryCards({ transactions }) {
         <div className="value">{yen(totalSales)}</div>
       </div>
       <div className="card">
-        <div className="label">総経費（仕入れ+送料+手数料等）</div>
+        <div className="label">総経費（全ての仕入れ・未売却分含む）</div>
         <div className="value">{yen(totalCost)}</div>
       </div>
       <div className="card">
