@@ -15,6 +15,7 @@ export async function PUT(request, { params }) {
     selling_fee = 0,
     other_cost = 0,
     sale_price = 0,
+    quantity = 1,
     status = "未売却",
     purchase_date = null,
     sale_date = null,
@@ -31,7 +32,7 @@ export async function PUT(request, { params }) {
   await db.execute({
     sql: `UPDATE transactions SET
       item_name = ?, category = ?, source = ?, purchase_price = ?, shipping_cost = ?,
-      selling_fee = ?, other_cost = ?, sale_price = ?, status = ?, purchase_date = ?,
+      selling_fee = ?, other_cost = ?, sale_price = ?, quantity = ?, status = ?, purchase_date = ?,
       sale_date = ?, memo = ?
       WHERE id = ?`,
     args: [
@@ -43,6 +44,7 @@ export async function PUT(request, { params }) {
       Number(selling_fee) || 0,
       Number(other_cost) || 0,
       Number(sale_price) || 0,
+      Number(quantity) || 1,
       status,
       purchase_date,
       sale_date,

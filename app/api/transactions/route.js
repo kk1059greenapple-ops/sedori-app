@@ -22,6 +22,7 @@ export async function POST(request) {
     selling_fee = 0,
     other_cost = 0,
     sale_price = 0,
+    quantity = 1,
     status = "未売却",
     purchase_date = null,
     sale_date = null,
@@ -37,8 +38,8 @@ export async function POST(request) {
 
   const result = await db.execute({
     sql: `INSERT INTO transactions
-      (item_name, category, source, purchase_price, shipping_cost, selling_fee, other_cost, sale_price, status, purchase_date, sale_date, memo)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (item_name, category, source, purchase_price, shipping_cost, selling_fee, other_cost, sale_price, quantity, status, purchase_date, sale_date, memo)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     args: [
       item_name,
       category,
@@ -48,6 +49,7 @@ export async function POST(request) {
       Number(selling_fee) || 0,
       Number(other_cost) || 0,
       Number(sale_price) || 0,
+      Number(quantity) || 1,
       status,
       purchase_date,
       sale_date,
